@@ -7,13 +7,23 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:neuimart_project/main.dart';
+import 'package:neuimart_project/model/data_provider/product_dto.dart';
+import 'package:neuimart_project/view/screens/cart/cart_bloc/cart_bloc.dart';
 
-import 'package:shopping_cart_neuiton/main.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(App());
+    final CartBLoC cartBLoC = CartBLoC();
+    final ProductDto product = ProductDto(
+        'imageUrl',
+        'name',
+        'description',
+        'price',
+        'mrpPrice',
+        'discountString'
+    );
+    await tester.pumpWidget(App(cartBLoC: cartBLoC, product: product,));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
