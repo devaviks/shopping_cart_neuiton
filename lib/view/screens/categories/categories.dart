@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:neuimart_project/view/screens/wishlist/wishlist.dart';
 
+import '../cart/cart_ui/cart.dart';
+import '../profile/Utils_Profile/colors.dart';
 import 'category.dart';
 
 class Categories extends StatelessWidget {
@@ -16,6 +19,11 @@ class Categories extends StatelessWidget {
               children: [
                 Row(
                   children: [
+                    IconButton(
+                      icon: Icon(Icons.arrow_back, color: AppColor.heading6),
+                      onPressed: () => Navigator.of(context).pushReplacementNamed('/home'),
+                    ),
+                    SizedBox(width: 15,),
                     Text(
                       'Categories',
                       style: TextStyle(
@@ -32,13 +40,23 @@ class Categories extends StatelessWidget {
                       icon: Icon(
                         Icons.favorite_border,
                         color: Colors.black,
-                      ), onPressed: () {  },
+                      ), onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Wishlist()),
+                      );
+                    },
                     ),
                     IconButton(
                       icon: Icon(
                         Icons.shopping_bag_outlined,
                         color: Colors.black,
-                      ), onPressed: () {  },
+                      ), onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Cart()),
+                      );
+                    },
                     ),
                   ],
                 ),

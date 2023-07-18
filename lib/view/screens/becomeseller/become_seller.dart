@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:neuimart_project/view/screens/wishlist/wishlist.dart';
 
 import '../profile/Utils_Profile/colors.dart';
 
@@ -82,12 +83,23 @@ class _BecomeSellerPageState extends State<BecomeSellerPage> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
-                        'Seller Details',
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Seller Details',
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.close),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
                       ),
                       SizedBox(height: 16.0),
                       TextFormField(
@@ -351,7 +363,12 @@ class _BecomeSellerPageState extends State<BecomeSellerPage> {
               Icons.favorite_border,
               color: AppColor.heading6,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Wishlist()),
+              );
+            },
           ),
         ],
       ),

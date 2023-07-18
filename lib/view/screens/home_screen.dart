@@ -1,4 +1,7 @@
+
 import 'package:flutter/material.dart';
+import 'package:neuimart_project/view/screens/seller/seller.dart';
+import 'package:neuimart_project/view/screens/timeline/timeline.dart';
 
 import 'profile/Profile.dart';
 import 'categories/categories.dart';
@@ -30,7 +33,10 @@ class _HomeScreenState extends State<HomeScreen> {
         'page': Categories(),
       },
       {
-        'page': Text(''),
+        'page': Seller(),
+      },
+      {
+        'page': Timeline(),
       },
       {
         'page': Profile(),
@@ -64,7 +70,12 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
             backgroundColor: Theme.of(context).hintColor,
             icon: Icon(Icons.explore),
-            label: 'Explore',
+            label: 'Seller',
+          ),
+          BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).hintColor,
+            icon: Icon(Icons.timeline),
+            label: 'Timeline',
           ),
           BottomNavigationBarItem(
             backgroundColor: Theme.of(context).hintColor,

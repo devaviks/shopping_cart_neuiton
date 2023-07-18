@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import '../../profile/Utils_Profile/colors.dart';
-import '../../wishlist/wishlist.dart';
-import 'ui/cartUI.dart';
+import 'package:neuimart_project/view/screens/timeline/timeline_screen.dart';
+import '../profile/Utils_Profile/colors.dart';
+import '../wishlist/wishlist.dart';
 
-class Cart extends StatefulWidget {
+
+class Timeline extends StatefulWidget {
 
   @override
-  State<Cart> createState() => _CartState();
+  State<Timeline> createState() => _TimelineState();
 }
 
-class _CartState extends State<Cart> {
+class _TimelineState extends State<Timeline> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,15 +18,15 @@ class _CartState extends State<Cart> {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: AppColor.heading6),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Navigator.of(context).pushReplacementNamed('/home'),
         ),
         backgroundColor: AppColor.whiteColor,
         elevation: 0,
-        title: Text("SHOPPING BAG", style: TextStyle(
+        title: Text("TIMELINE", style: TextStyle(
             fontSize: 14.5,
             letterSpacing: 0.15,
             color:AppColor.heading6,
-          fontWeight: FontWeight.bold
+            fontWeight: FontWeight.bold
         ),),
         actions: [
           IconButton(
@@ -42,7 +43,7 @@ class _CartState extends State<Cart> {
           ),
         ],
       ),
-        body: CartPage(),
+      body: TimelineScreen(),
     );
   }
 }

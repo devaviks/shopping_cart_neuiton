@@ -13,7 +13,7 @@ class Profile extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: AppColor.heading6),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Navigator.of(context).pushReplacementNamed('/home'),
         ),
         title: Text("Profile", style: TextStyle(
           fontSize: 14.5,

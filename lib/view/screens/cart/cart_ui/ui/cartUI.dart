@@ -55,7 +55,7 @@ class CartPage extends StatelessWidget {
             ),
           ),
         ),
-        CartFooterSection(),
+        CartFooterSection(isLoggedIn: true,),
       ],
     );
   }

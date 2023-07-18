@@ -4,6 +4,10 @@ import '../../../login/login-bottomsheet.dart';
 import '../../../profile/Utils_Profile/colors.dart';
 
 class CartFooterSection extends StatelessWidget {
+  final bool isLoggedIn; // Add a boolean flag to indicate login status
+
+  CartFooterSection({required this.isLoggedIn});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,7 +25,11 @@ class CartFooterSection extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              _showLoginBottomSheet(context);
+              if (isLoggedIn) {
+                _showOrderPlacedDialog(context);
+              } else {
+                _showLoginBottomSheet(context);
+              }
               print('Place Order button pressed');
             },
             style: ElevatedButton.styleFrom(
@@ -42,6 +50,26 @@ class CartFooterSection extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  void _showOrderPlacedDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Order Placed', style: TextStyle(fontWeight: FontWeight.bold),),
+          content: Text('Your order has been placed.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Okay'),
+            ),
+          ],
+        );
+      },
     );
   }
 

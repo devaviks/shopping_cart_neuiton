@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 
@@ -11,6 +12,7 @@ import '../../utils/api_constant.dart';
 import '../../utils/api_utility.dart';
 import '../../utils/asset_constants.dart';
 import '../../utils/validation_utility.dart';
+import '../home_screen.dart';
 import 'model/login_request.dart';
 import 'otp.dart';
 
@@ -25,7 +27,7 @@ class _LoginState extends State<Login> {
   final _form = GlobalKey<FormState>();
   late String _mobileNumber;
 
-  void _validateAndLogin(BuildContext ctx) {
+  void _validateAndLogin(BuildContext ctx) async {
     final isValid = _form.currentState?.validate();
     if (!isValid!) {
       return;
@@ -35,22 +37,26 @@ class _LoginState extends State<Login> {
     final login = loginRequest(userPhone: _mobileNumber, otp: '1111');
     final url = BASEURL + LOGIN;
 
-    http
-        .post(
-      Uri.parse(url),
-      headers: ApiUtility.getJsonHeaders(),
-      body: json.encode(login.toJson()),
-    )
-        .then((response) {
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: ApiUtility.getJsonHeaders(),
+        body: json.encode(login.toJson()),
+      );
+
       if (response.statusCode == 200) {
         final responseData = json.decode(response.body);
         final bool loginSuccessful = responseData['success'] == 1;
 
         if (loginSuccessful) {
+          // Save login status
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setBool('isLoggedIn', true);
+          await prefs.setString('mobileNumber', _mobileNumber);
+
           Navigator.of(context).pushNamed(Otp.routeName, arguments: _mobileNumber);
         } else {
-          final errorMessage =
-              responseData['message'];
+          final errorMessage = responseData['message'];
           ScaffoldMessenger.of(ctx).showSnackBar(
             SnackBar(content: Text(errorMessage)),
           );
@@ -61,14 +67,29 @@ class _LoginState extends State<Login> {
           SnackBar(content: Text(errorMessage)),
         );
       }
-    })
-        .catchError((error) {
+    } catch (error) {
       final errorMessage = 'Login failed. Please try again.';
       print(error);
       ScaffoldMessenger.of(ctx).showSnackBar(
         SnackBar(content: Text(errorMessage)),
       );
-    });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkLoginStatus();
+  }
+
+  void checkLoginStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+
+    if (isLoggedIn) {
+      final mobileNumber = prefs.getString('mobileNumber') ?? '';
+      Navigator.of(context).pushNamed(HomeScreen.routeName, arguments: mobileNumber);
+    }
   }
 
   @override

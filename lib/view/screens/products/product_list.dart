@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:neuimart_project/model/common_widgets/back_button.dart' as bb;
 import 'package:neuimart_project/view/screens/products/product.dart';
+import 'package:neuimart_project/view/screens/wishlist/wishlist.dart';
 
 
 import '../../../model/data_provider/product_data.dart';
+import '../cart/cart_ui/cart.dart';
+import '../search_page.dart';
 
 
 
 
 class ProductList extends StatelessWidget {
   static const routeName = '/products';
+
+  void _openSearchPage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SearchPage()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,19 +64,31 @@ class ProductList extends StatelessWidget {
                         icon: Icon(
                           Icons.search,
                           color: Colors.black,
-                        ), onPressed: () {  },
+                        ), onPressed: () {
+                        _openSearchPage(context);
+                      },
                       ),
                       IconButton(
                         icon: Icon(
                           Icons.favorite_border,
                           color: Colors.black,
-                        ), onPressed: () {  },
+                        ), onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Wishlist()),
+                        );
+                      },
                       ),
                       IconButton(
                         icon: Icon(
                           Icons.shopping_bag_outlined,
                           color: Colors.black,
-                        ), onPressed: () {  },
+                        ), onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Cart()),
+                        );
+                      },
                       ),
                     ],
                   ),

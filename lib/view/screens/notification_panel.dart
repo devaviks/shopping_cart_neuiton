@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:neuimart_project/view/screens/profile/Utils_Profile/colors.dart';
 
 import '../../model/data_provider/product_dto.dart';
+import 'cart/cart_ui/cart.dart';
 
 class NotificationPage extends StatelessWidget {
   final List<ProductDto> products;
@@ -27,10 +28,15 @@ class NotificationPage extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(
-              Icons.shopping_cart_outlined,
+              Icons.shopping_bag_outlined,
               color: AppColor.heading6,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Cart()),
+              );
+            },
           ),
         ],
       ),

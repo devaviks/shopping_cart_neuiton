@@ -10,7 +10,6 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   final TextEditingController _searchController = TextEditingController();
-
   final FocusNode _searchFocusNode = FocusNode();
 
   List<ProductDto> products = ProductData.getProductsListData();
@@ -53,9 +52,10 @@ class _SearchPageState extends State<SearchPage> {
             Text(
               'What are you looking for?',
               style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey[500]),
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[500],
+              ),
             ),
             SizedBox(height: 16),
             Container(
@@ -96,32 +96,42 @@ class _SearchPageState extends State<SearchPage> {
             Text(
               'Popular Searches',
               style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey[500]),
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[500],
+              ),
             ),
             SizedBox(height: 8),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: [
-                _buildPopularSearchItem('Shoes'),
-                _buildPopularSearchItem('Dresses'),
-                _buildPopularSearchItem('T-shirts'),
-                _buildPopularSearchItem('Jeans'),
-                _buildPopularSearchItem('Accessories'),
-                _buildPopularSearchItem('Bags'),
-                _buildPopularSearchItem('Watches'),
-                _buildPopularSearchItem('Sunglasses'),
-              ],
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  _buildPopularSearchItem('Shoes'),
+                  SizedBox(width: 10),
+                  _buildPopularSearchItem('Dresses'),
+                  SizedBox(width: 10),
+                  _buildPopularSearchItem('T-shirts'),
+                  SizedBox(width: 10),
+                  _buildPopularSearchItem('Jeans'),
+                  SizedBox(width: 10),
+                  _buildPopularSearchItem('Accessories'),
+                  SizedBox(width: 10),
+                  _buildPopularSearchItem('Bags'),
+                  SizedBox(width: 10),
+                  _buildPopularSearchItem('Watches'),
+                  SizedBox(width: 10),
+                  _buildPopularSearchItem('Sunglasses'),
+                ],
+              ),
             ),
             SizedBox(height: 16),
             Text(
               'Popular Items',
               style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey[500]),
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[500],
+              ),
             ),
             SizedBox(height: 8),
             Expanded(
@@ -136,99 +146,105 @@ class _SearchPageState extends State<SearchPage> {
                 itemBuilder: (context, index) {
                   ProductDto product = products[index];
                   return GestureDetector(
-                      onTap: () {
-                        // Handle product item click
-                        // Example: Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetailPage(product)));
-                      },
-                      child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
-                                blurRadius: 4,
-                                offset: Offset(0, 2),
-                              ),
-                            ],
+                    onTap: () {
+                      // Handle product item click
+                      // Example: Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetailPage(product)));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 4,
+                            offset: Offset(0, 2),
                           ),
-                          child:  ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Stack(
-                                  children: [
-                                    Image.network(
-                                      product.imageUrl,
-                                      fit: BoxFit.cover,
-                                      width: double.infinity,
-                                      height: double.infinity,
-                                    ),
-                                    Positioned.fill(
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.black.withOpacity(0.4),
-                                          borderRadius: BorderRadius.circular(8),
-                                        ),
+                        ],
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Stack(
+                          children: [
+                            Image.network(
+                              product.imageUrl,
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                              height: double.infinity,
+                            ),
+                            Positioned.fill(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.black.withOpacity(0.4),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              bottom: 8,
+                              left: 8,
+                              right: 8,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(bottom: 4),
+                                    child: Text(
+                                      product.name,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
                                       ),
                                     ),
-                                    Positioned(
-                                        bottom: 8,
-                                        left: 8,
-                                        right: 8,
-                                        child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsets.only(bottom: 4),
-                                                child: Text(
-                                                  product.name,
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsets.only(bottom: 4),
-                                                child: Text(
-                                                  product.description,
-                                                  style: TextStyle(
-                                                    fontSize: 12,
-                                                    color: Colors.white,
-                                                  ),
-                                                  maxLines: 2,
-                                                  overflow: TextOverflow.ellipsis,
-                                                ),
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    '₹ ${product.price}',
-                                                    style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                  SizedBox(width: 4),
-                                                  Text(
-                                                    '₹ ${product.mrpPrice}',
-                                                    style: TextStyle(
-                                                      decoration: TextDecoration.lineThrough,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                  SizedBox(width: 4),
-                                                  Text(
-                                                    product.discountString,
-                                                    style: TextStyle(
-                                                      color: Colors.red,
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 11,
-                                                    ),
-                                                  ),
-                                            ],
-                                          ),
-                                        ]))
-                              ]))));
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(bottom: 4),
+                                    child: Text(
+                                      product.description,
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.white,
+                                      ),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        '₹ ${product.price}',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      SizedBox(width: 4),
+                                      Text(
+                                        '₹ ${product.mrpPrice}',
+                                        style: TextStyle(
+                                          decoration: TextDecoration.lineThrough,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      SizedBox(width: 4),
+                                      Text(
+                                        product.discountString,
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 11,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
                 },
               ),
             ),

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import '../../profile/Utils_Profile/colors.dart';
-import '../../wishlist/wishlist.dart';
-import 'ui/cartUI.dart';
+import 'package:neuimart_project/view/screens/wishlist/wishlistUI.dart';
+import '../cart/cart_ui/cart.dart';
+import '../profile/Utils_Profile/colors.dart';
 
-class Cart extends StatefulWidget {
+
+class Wishlist extends StatefulWidget {
 
   @override
-  State<Cart> createState() => _CartState();
+  State< Wishlist> createState() => _WishlistState();
 }
 
-class _CartState extends State<Cart> {
+class _WishlistState extends State< Wishlist> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,28 +22,28 @@ class _CartState extends State<Cart> {
         ),
         backgroundColor: AppColor.whiteColor,
         elevation: 0,
-        title: Text("SHOPPING BAG", style: TextStyle(
+        title: Text("Wishlist", style: TextStyle(
             fontSize: 14.5,
             letterSpacing: 0.15,
             color:AppColor.heading6,
-          fontWeight: FontWeight.bold
+            fontWeight: FontWeight.bold
         ),),
         actions: [
           IconButton(
             icon: Icon(
-              Icons.favorite_border,
+              Icons.shopping_bag_outlined,
               color: AppColor.heading6,
             ),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Wishlist()),
+                MaterialPageRoute(builder: (context) => Cart()),
               );
             },
           ),
         ],
       ),
-        body: CartPage(),
+      body: WishlistPage(),
     );
   }
 }

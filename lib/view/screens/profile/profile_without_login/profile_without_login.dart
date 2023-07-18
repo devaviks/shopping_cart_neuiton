@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 
 import '../../becomeseller/become_seller.dart';
+import '../../my_orders/my_orders.dart';
 import '../Utils_Profile/colors.dart';
 import '../profile_content/profile_content.dart';
 import '../profile_items/profile_items.dart';
@@ -76,7 +77,12 @@ class ProfileWithoutLogin extends StatelessWidget {
                 subtitle: "Check your order status",
                 leading: "assets/icons/package.png",
                 isLast: false,
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyOrdersPage()),
+                  );
+                },
               ),
               ProfileItem(
                 title: "Become a Seller",

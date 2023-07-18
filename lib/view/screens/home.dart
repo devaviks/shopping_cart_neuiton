@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:neuimart_project/view/screens/search_page.dart';
+import 'package:neuimart_project/view/screens/wishlist/wishlist.dart';
 
 import '../../model/common_widgets/cached_image.dart';
 import '../../model/data_provider/home_data.dart';
@@ -14,11 +15,9 @@ import 'notification_panel.dart';
 class Home extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-
   void _openDrawer() {
     _scaffoldKey.currentState?.openDrawer();
   }
-
 
   void _openSearchPage(BuildContext context) {
     Navigator.push(
@@ -36,7 +35,6 @@ class Home extends StatelessWidget {
       ),
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +92,12 @@ class Home extends StatelessWidget {
                             Icons.favorite_border,
                             color: Colors.black,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => Wishlist()),
+                            );
+                          },
                         ),
                         IconButton(
                           icon: Icon(
